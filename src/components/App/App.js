@@ -171,7 +171,7 @@ const handleEditMeme = (id, updatedMeme) => {
            <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated}  />} />
            {isAuthenticated && (
             <>
-              <Route exact path="/allmemes" element={<Allmemes memes={memes}  handleSearchChange={handleSearchChange}/>} />
+              <Route exact path="/allmemes" element={<Allmemes memes={memes}search={search}  handleSearchChange={handleSearchChange}/>} />
               <Route path="/mymemes" element={renderMymemes()}/>
             </>
            )}
