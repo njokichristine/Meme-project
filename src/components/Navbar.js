@@ -1,6 +1,6 @@
 
 import {  Link } from "react-router-dom"
-import profile from "../images/userimg.png"
+//import profile from "../images/userimg.png"
 
 const Navbar = ({isAuthenticated, handleLogout, username}) => {
 
@@ -11,7 +11,7 @@ const Navbar = ({isAuthenticated, handleLogout, username}) => {
           <Link to="/"className="font-semibold text-2xl text-teal-500 tracking-tight">Haha hub</Link>
         </div>
         <div className="flex items-center flex-shrink-0 text-teal-500 font-bold justify-center">
-          <Link to="/"  exact className=" ml-5">Home</Link>
+          <Link to="/"   className=" ml-5">Home</Link>
           {isAuthenticated? ( 
               <>
                 <Link to="/allmemes"  exact className="ml-5">All jokes</Link>
@@ -27,7 +27,7 @@ const Navbar = ({isAuthenticated, handleLogout, username}) => {
             <div className="flex">
              
               <p className="text-teal-500 font-semibold text-2xl"> {username}</p>
-              <img src={profile} alt="the username" className="w-8 ml-4" />
+              {/* <img src={profile} alt="the username" className="w-8 ml-4" /> */}
             </div>
           ) : null}
       </nav>

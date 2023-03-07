@@ -1,13 +1,15 @@
-import { Routes , Route, useNavigate} from 'react-router-dom'
+import {  Routes , Route } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
-import Navbar from "./Navbar"
-import Home from "./Home"
-import Register from './Register'
-import Allmemes from './Allmemes'
-import Mymemes from './Mymemes'
+import Navbar from "../Navbar"
+import Home from "../Home"
+import Register from '../Register'
+import Allmemes from '../Allmemes'
+import Mymemes from '../Mymemes'
+import { useNavigate } from 'react-router-dom'
+import Login from '../Login'
 
 function App() {
-
+  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('')
   const [userId, setUserId] = useState('');
@@ -15,7 +17,7 @@ function App() {
   const [myMemes, setMyMemes] = useState([])
   const [search, setSearch] = useState("");
   
-  const navigate = useNavigate()
+ 
 
   console.log(myMemes)
 
@@ -61,7 +63,9 @@ function App() {
       if (response.ok) {
         setIsAuthenticated(false);
         navigate('/');
-      } else {
+      } else { 
+        
+
         throw new Error('Failed to logout');
       }
     })
@@ -73,7 +77,7 @@ function App() {
 useEffect(() => {
   fetch("http://localhost:9292/memes")
     .then((r) => r.json())
-    .then((response) => setMemes(response.memes));
+    .then((response) => setMemes(response));
 }, []);
 
 
@@ -84,7 +88,7 @@ useEffect(() => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      setMyMemes(data.memes);
+      setMyMemes(data);
     })
     .catch((error) => console.error(error));
 }, [userId]);
@@ -94,21 +98,22 @@ const handleSearchChange = (value) => {
   setSearch(value);
 };
 
-const displayedMemes = memes.filter((meme) => meme.title.toLowerCase().includes(search.toLowerCase()))
+// const displayedMemes = memes.filter((meme) => meme.title.toLowerCase().includes(search.toLowerCase()))
 
 
 const renderMymemes = () => {
   if (isAuthenticated) {
-    return <Mymemes
+    return (
+    <Mymemes
                 userId={userId}
                 myMemes={myMemes}
                 setMyMemes={setMyMemes}
                 handleDeleteMemes={handleDeleteMemes}
                 handleAddMemes={handleAddMemes} 
                 handleEditMeme={handleEditMeme}
-            />
+            />)
   } else {
-    navigate('/login');
+   navigate ("/login") ;
   }
 }
 
@@ -160,17 +165,52 @@ const handleEditMeme = (id, updatedMeme) => {
         <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} username={username} />
         
         <Routes>
+
+          <Route path="/login" element= {<Login/>}/> 
            <Route path="/" element={<Home setIsAuthenticated={setIsAuthenticated}  isAuthenticated={isAuthenticated} handleLogin={handleLogin}/>} />
            <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated}  />} />
            {isAuthenticated && (
             <>
-              <Route path="/allmemes" element={<Allmemes memes={displayedMemes} displayedMemes={displayedMemes} handleSearchChange={handleSearchChange}/>} />
+              <Route exact path="/allmemes" element={<Allmemes memes={memes}  handleSearchChange={handleSearchChange}/>} />
               <Route path="/mymemes" element={renderMymemes()}/>
             </>
            )}
         </Routes>
+        
    </div>
   );
 }
 
 export default App;
+// import './App.css';
+// import Navbar from '../Navbar';
+// import Login from '../Login';
+// import Home from '../Home';
+// import Allmemes from '../Allmemes';
+// import Mymemes from '../Mymemes';
+// import Register from '../Register';
+// import { Routes, Route } from 'react-router-dom';
+
+
+
+
+// function App() {
+
+
+  
+//   return (
+//     <div className="overlay">
+//     <Routes>
+//       <Route exact path="/home" element={<Home/>}></Route>
+//       <Route exact path="/navbar" element={<Navbar />}></Route>
+//       <Route exact path="/login" element={<Login/>}></Route>
+//       <Route exact path="/register" element={<Register/>}></Route>
+//       <Route exact path="/home" element={<Home />}></Route>
+      
+//     </Routes>
+//   </div>
+//   )
+// }
+// export default App;
+  
+  

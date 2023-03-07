@@ -21,7 +21,9 @@ const Allmemes = ({ memes, handleSearchChange  }) => {
      }
  
      return (
-       <div>
+       <div> 
+        <Search handleSearchChange={handleSearchChange} />
+        {memes.map((meme)=>
         
        <div
          key={meme.id}
@@ -38,13 +40,13 @@ const Allmemes = ({ memes, handleSearchChange  }) => {
          <p className="">
            <span className="text-gray-900 font-bold">"{meme.message}"</span>
          </p>
-       </div>
+       </div> )}
        </div>
      );
    });
  
    return <div>
-              <Search handleSearchChange={handleSearchChange} />
+             
              <div className=" mt-10 pb-20 ">
               {allmemes}
              </div>

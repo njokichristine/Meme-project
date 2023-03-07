@@ -14,9 +14,11 @@ const Register = ({setIsAuthenticated}) => {
         const formData = new FormData(form);
       
         try {
-          const response = await fetch('http://127.0.0.1:9292/users', {
+          const response = await fetch('http://127.0.0.1:9292/register', {
             method: 'POST',
-            body: formData,
+            body: JSON.stringify({
+              data: formData
+              })
           });
       
           if (response.ok) {
@@ -40,7 +42,7 @@ const Register = ({setIsAuthenticated}) => {
       
           <div class="md:flex md:items-center mb-6">   
             <div class="md:w-1/3">
-              <label class="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-username">
+              <label class="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4" >
               Username
               </label>
             </div>
@@ -55,7 +57,7 @@ const Register = ({setIsAuthenticated}) => {
       
           <div class="md:flex md:items-center mb-6">   
             <div class="md:w-1/3">
-              <label class="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-username" id="email">
+              <label class="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4"  id="email">
                 email
               </label>
             </div>
